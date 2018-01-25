@@ -26,5 +26,7 @@ namespace WindowsFormsApplication4
         void drawBombardir(Graphics gr);
 
 		void setMainColor(Color color);
+
+		string getInfo();
     }
 }

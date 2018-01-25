@@ -51,5 +51,6 @@ namespace WindowsFormsApplication4
 		}
 
 		public abstract void moveBomb(Graphics g);
+		public abstract string getInfo();
 	}
 }
