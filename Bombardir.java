@@ -5,7 +5,7 @@ public class Bombardir extends Plane {
 	private boolean left;
 	private boolean right;
     private Color dopColor;
-
+    
 	public Bombardir(int maxSpeed, int maxCountBomb, int weight, Color color, boolean left, boolean right, Color dopColor) 
 	{
 		super(maxSpeed, maxCountBomb, weight, color);
@@ -37,22 +37,22 @@ public class Bombardir extends Plane {
 			{
 			g.setColor(dopColor);
 
-              g.drawLine(startPosX + 20, startPosY + 40, startPosX + 105, startPosY + 40);
-              g.drawLine(startPosX + 105, startPosY + 40, startPosX + 125, startPosY + 50);
-              g.drawLine(startPosX + 125, startPosY + 50, startPosX + 105, startPosY + 60);
-              g.drawLine(startPosX + 105, startPosY + 60, startPosX + 20, startPosY + 60);
-              g.drawLine(startPosX + 20, startPosY + 60, startPosX + 20, startPosY + 40);
+              g.drawLine((startPosX + 20)/2, (startPosY + 40)/2, (startPosX + 105)/2, (startPosY + 40)/2);
+              g.drawLine((startPosX + 105)/2, (startPosY + 40)/2, (startPosX + 125)/2, (startPosY + 50)/2);
+              g.drawLine((startPosX + 125)/2, (startPosY + 50)/2, (startPosX + 105)/2, (startPosY + 60)/2);
+              g.drawLine((startPosX + 105)/2, (startPosY + 60)/2, (startPosX + 20)/2, (startPosY + 60)/2);
+              g.drawLine((startPosX + 20)/2, (startPosY + 60)/2, (startPosX + 20)/2, (startPosY + 40)/2);
           }
 
 			if(right)
 			{
 			g.setColor(dopColor);
 
-              g.drawLine(startPosX + 20, startPosY + 145, startPosX + 105, startPosY + 145);
-              g.drawLine(startPosX + 105, startPosY + 145, startPosX + 125, startPosY + 155);
-              g.drawLine(startPosX + 125, startPosY + 155, startPosX + 105, startPosY + 165);
-              g.drawLine(startPosX + 105, startPosY + 165, startPosX + 20, startPosY + 165);
-              g.drawLine(startPosX + 20, startPosY + 165, startPosX + 20, startPosY + 145);
+              g.drawLine((startPosX + 20)/2, (startPosY + 145)/2, (startPosX + 105)/2, (startPosY + 145)/2);
+              g.drawLine((startPosX + 105)/2, (startPosY + 145)/2, (startPosX + 125)/2, (startPosY + 155)/2);
+              g.drawLine((startPosX + 125)/2, (startPosY + 155)/2, (startPosX + 105)/2, (startPosY + 165)/2);
+              g.drawLine((startPosX + 105)/2, (startPosY + 165)/2, (startPosX + 20)/2, (startPosY + 165)/2);
+              g.drawLine((startPosX + 20)/2, (startPosY + 165)/2, (startPosX + 20)/2, (startPosY + 145)/2);
           }
 		}
 	

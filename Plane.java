@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class Plane extends Technique {
+	
 	@Override
 	public int GetMaxCountBomb()
 	{
@@ -71,14 +72,14 @@ public class Plane extends Technique {
 	protected void drawLightBombardir(Graphics g)
 	{
 		g.setColor(GetColorBody());
-		g.drawLine(startPosX + 25, startPosY + 20, startPosX + 40, startPosY + 20);
-        g.drawLine(startPosX + 40, startPosY + 20, startPosX + 130, startPosY + 95);
-        g.drawLine(startPosX + 130, startPosY + 95, startPosX + 130, startPosY + 110);
-        g.drawLine(startPosX + 130, startPosY + 110, startPosX + 40, startPosY + 190);
-        g.drawLine(startPosX + 40, startPosY + 190, startPosX + 25, startPosY + 190);
-        g.drawLine(startPosX + 25, startPosY + 190, startPosX + 80, startPosY + 110);
-        g.drawLine(startPosX + 80, startPosY + 110, startPosX + 80, startPosY + 95);
-        g.drawLine(startPosX + 80, startPosY + 95, startPosX + 25, startPosY + 20);
+		g.drawLine((startPosX + 25)/2, (startPosY + 20)/2, (startPosX + 40)/2, (startPosY + 20)/2);
+        g.drawLine((startPosX + 40)/2, (startPosY + 20)/2, (startPosX + 130)/2, (startPosY + 95)/2);
+        g.drawLine((startPosX + 130)/2, (startPosY + 95)/2, (startPosX + 130)/2, (startPosY + 110)/2);
+        g.drawLine((startPosX + 130)/2, (startPosY + 110)/2, (startPosX + 40)/2, (startPosY + 190)/2);
+        g.drawLine((startPosX + 40)/2, (startPosY + 190)/2, (startPosX + 25)/2, (startPosY + 190)/2);
+        g.drawLine((startPosX + 25)/2, (startPosY + 190)/2, (startPosX + 80)/2, (startPosY + 110)/2);
+        g.drawLine((startPosX + 80)/2, (startPosY + 110)/2, (startPosX + 80)/2, (startPosY + 95)/2);
+        g.drawLine((startPosX + 80)/2, (startPosY + 95)/2, (startPosX + 25)/2, (startPosY + 20)/2);
     }
 
 	@Override
