@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassArray.cs" />
+    <Compile Include="FormSelectCar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSelectCar.Designer.cs">
+      <DependentUpon>FormSelectCar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Parking.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="Bombardir.cs" />
@@ -62,6 +68,9 @@
     <Compile Include="Technique.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSelectCar.resx">
+      <DependentUpon>FormSelectCar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

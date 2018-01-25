@@ -14,6 +14,8 @@ namespace WindowsFormsApplication4
 	{
 		Parking parking;
 
+		FormSelectCar form;
+
         public Form1()
 		{
             InitializeComponent();
@@ -94,7 +96,32 @@ namespace WindowsFormsApplication4
 			listBoxLevels.SelectedIndex = parking.getCurrentLevel;
 			Draw();
 		}
-	}
+
+        private void buttonSetPlane_Click(object sender, EventArgs e)
+        {
+            form = new FormSelectCar();
+            form.AddEvent(AddPlane);
+            form.Show();
+        }
+
+        private void AddPlane(ITechnique plane)
+        {
+            if (plane != null)
+            {
+                int place = parking.PutPlaneInParking(plane);
+                if (place > -1)
+                {
+                    Draw();
+                    MessageBox.Show("Ваше место: " + place);
+                }
+                else
+                {
+                    MessageBox.Show("Технику не удалось поставить");
+                }
+            }
+        }
+
+        }
 }
 
 

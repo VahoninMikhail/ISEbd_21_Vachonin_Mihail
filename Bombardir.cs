@@ -53,5 +53,10 @@ namespace WindowsFormsApplication4
                 g.DrawLine(pen, (startPosX + 20)/2, (startPosY + 165)/2, (startPosX + 20)/2, (startPosY + 145)/2);
             }
 		}
+
+		public void setDopColor(Color color)
+		{
+			dopColor = color;
+		}
 	}
 }
