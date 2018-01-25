@@ -21,7 +21,22 @@ namespace WindowsFormsApplication4
             this.dopColor = dopColor;
         }
 
-        protected override void takeBomb(Graphics g)
+		public Bombardir(string info) : base(info)
+        {
+			string[] strs = info.Split(';');
+			if (strs.Length == 7)
+			{
+				MaxSpeed = Convert.ToInt32(strs[0]);
+				MaxCountBomb = Convert.ToInt32(strs[1]);
+				Weight = Convert.ToInt32(strs[2]);
+				ColorBody = Color.FromName(strs[3]);
+				left = Convert.ToBoolean(strs[4]);
+				right = Convert.ToBoolean(strs[5]);
+				dopColor = Color.FromName(strs[6]);
+			}
+		}
+
+		protected override void takeBomb(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
             g.DrawEllipse(pen, startPosX + 100, startPosY + 150, startPosX + 130, startPosY + 180);
@@ -58,5 +73,11 @@ namespace WindowsFormsApplication4
 		{
 			dopColor = color;
 		}
-	}
+
+		public override string getInfo()
+		{
+			return MaxSpeed + ";" + MaxCountBomb + ";" + Weight + ";" + ColorBody.Name + ";" 
+				+ left + ";" + right + ";" + dopColor.Name;
+		}
+		}
 }

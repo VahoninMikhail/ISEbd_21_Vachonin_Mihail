@@ -12,7 +12,7 @@ namespace WindowsFormsApplication4
         private bool left;
         private bool right;
 
-        public override int MaxSpeed
+		public override int MaxSpeed
         {
             get
             {
@@ -87,7 +87,23 @@ namespace WindowsFormsApplication4
             this.right = right;
         }
 
-        public override void moveBombardir(Graphics g)
+		public Plane(string info)
+		{
+			string[] strs = info.Split(';');
+			if (strs.Length == 4)
+			{
+				MaxSpeed = Convert.ToInt32(strs[0]);
+				MaxCountBomb = Convert.ToInt32(strs[1]);
+				Weight = Convert.ToInt32(strs[2]);
+				ColorBody = Color.FromName(strs[3]);
+			}
+			this.countBomb = 0;
+			Random rand = new Random();
+			startPosX = rand.Next(10, 200);
+			startPosY = rand.Next(10, 200);
+		}
+
+		public override void moveBombardir(Graphics g)
         {
             startPosX += (MaxSpeed * 50 / (float)Weight) / (countBomb == 0 ? 1 : countBomb);
             drawBombardir(g);
@@ -131,6 +147,11 @@ namespace WindowsFormsApplication4
         {
 
         }
+
+		public override string getInfo()
+		{
+			return MaxSpeed + ";" + MaxCountBomb + ";" + Weight + ";" + ColorBody.Name;
+		}
 
     }
 
