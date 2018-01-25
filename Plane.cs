@@ -7,8 +7,80 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication4
 {
-    public class Plane : Technique
+    public class Plane : Technique, IComparable<Plane>, IEquatable<Plane>
     {
+        public int CompareTo(Plane other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return MaxSpeed.CompareTo(other.MaxSpeed);
+            }
+            if (MaxCountBomb != other.MaxCountBomb)
+            {
+                return MaxCountBomb.CompareTo(other.MaxCountBomb);
+            }
+            if (Weight != other.Weight)
+            {
+                return Weight.CompareTo(other.Weight);
+            }
+            if (ColorBody != other.ColorBody)
+            {
+                ColorBody.Name.CompareTo(other.ColorBody.Name);
+            }
+            return 0;
+        }
+
+        public bool Equals(Plane other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (MaxSpeed != other.MaxSpeed)
+            {
+                return false;
+            }
+            if (MaxCountBomb != other.MaxCountBomb)
+            {
+                return false;
+            }
+            if (Weight != other.Weight)
+            {
+                return false;
+            }
+            if (ColorBody != other.ColorBody)
+            {
+                return false;
+            }
+            return true;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Plane planeObj = obj as Plane;
+            if (planeObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(planeObj);
+            }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        //
+
         private bool left;
         private bool right;
 
@@ -58,7 +130,7 @@ namespace WindowsFormsApplication4
             }
             protected set
             {
-                if (value > 500 && value < 1500)
+                if (value > 0 && value < 1500)
                 {
                     base.Weight = value;
                 }

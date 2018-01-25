@@ -186,7 +186,14 @@ namespace WindowsFormsApplication4
 				}
 			}
 		}
-	}
+
+
+        private void buttonSort_Click_1(object sender, EventArgs e)
+        {
+            parking.Sort();
+            Draw();
+        }
+    }
 }
 
 
