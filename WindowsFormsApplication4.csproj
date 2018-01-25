@@ -58,6 +58,7 @@
       <DependentUpon>FormSelectCar.cs</DependentUpon>
     </Compile>
     <Compile Include="Parking.cs" />
+    <Compile Include="ParkingAlreadyHaveException.cs" />
     <Compile Include="ParkingIndexOutOfRangeException.cs" />
     <Compile Include="ParkingOverflowException.cs" />
     <Compile Include="Plane.cs" />

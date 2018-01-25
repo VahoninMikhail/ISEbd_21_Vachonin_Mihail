@@ -69,21 +69,23 @@ namespace WindowsFormsApplication4
 		public void Draw(Graphics g)
 		{
 			DrawMarking(g);
-			for (int i = 0; i < countPlaces; i++)
-			{
-				var plane = parkingStages[currentLevel][i];
-				if (plane != null)
-				{ ///если место не пустое
-					plane.setPosition(5 + i / 5 * 400 + 5, i % 5 * 235 + 15);
-					plane.drawBombardir(g);
-				}
-			}
-		}
+            int i = 0;
+            foreach (var plane in parkingStages[currentLevel])
+            {
+                plane.setPosition(5 + i / 5 * 400 + 5, i % 5 * 235 + 15);
+                plane.drawBombardir(g);
+                i++;
+            }
+        }
 
-		/// отрисовка разметки парковки
+        public void Sort()
+        {
+            parkingStages.Sort();
+        }
+        /// отрисовка разметки парковки
 
 
-		private void DrawMarking(Graphics g)
+        private void DrawMarking(Graphics g)
 		{
 			Pen pen = new Pen(Color.Black, 3);
 			///границы парковки

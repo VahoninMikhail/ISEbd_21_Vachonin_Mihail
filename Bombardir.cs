@@ -7,9 +7,86 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication4
 {
-	public class Bombardir : Plane
-	{
-		private bool left;
+	public class Bombardir : Plane, IComparable<Bombardir>, IEquatable<Bombardir>
+    {
+        public int CompareTo(Bombardir other)
+        {
+            var res = (this is Plane).CompareTo(other is Plane);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (left != other.left)
+            {
+                return left.CompareTo(other.left);
+            }
+            if (right != other.right)
+            {
+                return right.CompareTo(other.right);
+            }
+            if (ColorBody != other.ColorBody)
+            {
+                ColorBody.Name.CompareTo(other.ColorBody
+                    .Name);
+            }
+            if (dopColor != other.dopColor)
+            {
+                dopColor.Name.CompareTo(other.dopColor
+                    .Name);
+            }
+            return 0;
+        }
+
+        public bool Equals(Bombardir other)
+        {
+            var res = (this is Plane).Equals(other is Plane);
+            if (!res)
+            {
+                return res;
+            }
+            if (left != other.left)
+            {
+                return false;
+            }
+            if (right != other.right)
+            {
+                return false;
+            }
+            if (dopColor != other.dopColor)
+            {
+                return false;
+            }
+            if (ColorBody != other.ColorBody)
+            {
+                return false;
+            }
+            return true;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Bombardir planeObj = obj as Bombardir;
+            if (planeObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(planeObj);
+            }
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+
+
+
+        private bool left;
 		private bool right;
         private Color dopColor;
 
