@@ -17,16 +17,24 @@ namespace WindowsFormsApplication4
         public Form1()
 		{
             InitializeComponent();
-			parking = new Parking();
+			parking = new Parking(5);
+			for (int i = 1; i < 6; i++)
+			{
+				listBoxLevels.Items.Add("Уровень " + i);
+			}
+			listBoxLevels.SelectedIndex = parking.getCurrentLevel;
 			Draw();
         }
 
 		private void Draw()
 		{
-			Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-			Graphics gr = Graphics.FromImage(bmp);
-			parking.Draw(gr, pictureBox1.Width, pictureBox1.Height);
-			pictureBox1.Image = bmp;
+			if (listBoxLevels.SelectedIndex > -1)
+			{
+				Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+				Graphics gr = Graphics.FromImage(bmp);
+				parking.Draw(gr);
+				pictureBox1.Image = bmp;
+			}
 		}
 
 		private void button2_Click(object sender, EventArgs e)
@@ -71,6 +79,20 @@ namespace WindowsFormsApplication4
 				pictureBox2.Image = bmp;
 				Draw();
 			}
+		}
+
+		private void button2_Click_1(object sender, EventArgs e)
+		{
+			parking.LevelDown();
+			listBoxLevels.SelectedIndex = parking.getCurrentLevel;
+			Draw();
+		}
+
+		private void button4_Click(object sender, EventArgs e)
+		{
+			parking.LevelUp();
+			listBoxLevels.SelectedIndex = parking.getCurrentLevel;
+			Draw();
 		}
 	}
 }

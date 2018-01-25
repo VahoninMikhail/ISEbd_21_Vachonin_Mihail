@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication4
 {
-	interface ITechnique
+	public interface ITechnique
 	{
 		void moveBombardir(Graphics g);
 
