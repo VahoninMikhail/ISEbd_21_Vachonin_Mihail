@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,9 +17,12 @@ namespace WindowsFormsApplication4
 
 		FormSelectCar form;
 
+		private Logger log;
+
         public Form1()
 		{
             InitializeComponent();
+			log = LogManager.GetCurrentClassLogger();
 			parking = new Parking(5);
 			for (int i = 1; i < 6; i++)
 			{
@@ -70,16 +74,33 @@ namespace WindowsFormsApplication4
 
 		private void button1_Click_1(object sender, EventArgs e)
 		{
-			if (maskedTextBox1.Text != "")
-			{
-				var plane = parking.GetPlaneInParking(Convert.ToInt32(maskedTextBox1.Text));
-
-				Bitmap bmp = new Bitmap(pictureBox2.Width, pictureBox2.Height);
-				Graphics gr = Graphics.FromImage(bmp);
-				plane.setPosition(0, 0);
-				plane.drawBombardir(gr);
-				pictureBox2.Image = bmp;
-				Draw();
+			if (listBoxLevels.SelectedIndex > -1)
+			{ //Прежде чем забрать машину, надо выбирать с какого уровня будем забирать
+				string level = listBoxLevels.Items[listBoxLevels.SelectedIndex].ToString();
+				if (maskedTextBox1.Text != "")
+				{
+					try
+					{
+						ITechnique plane = parking.GetPlaneInParking(Convert.ToInt32(maskedTextBox1.Text));
+						Bitmap bmp = new Bitmap(pictureBox2.Width, pictureBox2.Height);
+						Graphics gr = Graphics.FromImage(bmp);
+						plane.setPosition(0, 0);
+						plane.drawBombardir(gr);
+						pictureBox2.Image = bmp;
+						Draw();
+						log.Info("Забрали с места: " + Convert.ToInt32(maskedTextBox1.Text));
+					}
+					catch (ParkingIndexOutOfRangeException ex)
+					{
+						MessageBox.Show(ex.Message, "Неверный номер",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(ex.Message, "Общая ошибка",
+							MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
 			}
 		}
 
@@ -87,6 +108,7 @@ namespace WindowsFormsApplication4
 		{
 			parking.LevelDown();
 			listBoxLevels.SelectedIndex = parking.getCurrentLevel;
+			log.Info("Переход на уровень ниже Текущий уровень: " + parking.getCurrentLevel);
 			Draw();
 		}
 
@@ -94,6 +116,7 @@ namespace WindowsFormsApplication4
 		{
 			parking.LevelUp();
 			listBoxLevels.SelectedIndex = parking.getCurrentLevel;
+			log.Info("Переход на уровень выше Текущий уровень: " + parking.getCurrentLevel);
 			Draw();
 		}
 
@@ -101,24 +124,31 @@ namespace WindowsFormsApplication4
         {
             form = new FormSelectCar();
             form.AddEvent(AddPlane);
-            form.Show();
+			form.Show();
         }
 
         private void AddPlane(ITechnique plane)
         {
             if (plane != null)
             {
-                int place = parking.PutPlaneInParking(plane);
-                if (place > -1)
-                {
-                    Draw();
-                    MessageBox.Show("Ваше место: " + place);
-                }
-                else
-                {
-                    MessageBox.Show("Технику не удалось поставить");
-                }
-            }
+				try
+				{
+					int place = parking.PutPlaneInParking(plane);
+					Draw();
+					log.Info("Добавление на место: " + place);
+					MessageBox.Show("Ваше место: " + place);
+				}
+				catch (ParkingOverflowException ex)
+				{
+					MessageBox.Show(ex.Message, "Ошибка переполнения",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show(ex.Message, "Общая ошибка",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
         }
 
 		private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
