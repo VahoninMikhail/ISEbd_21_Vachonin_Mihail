@@ -22,6 +22,9 @@ namespace WindowsFormsApplication4
 		void loadBomb(int count);
 
 		int getBomb();
+
         void drawBombardir(Graphics gr);
+
+		void setMainColor(Color color);
     }
 }

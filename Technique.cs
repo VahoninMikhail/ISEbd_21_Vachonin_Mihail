@@ -45,6 +45,11 @@ namespace WindowsFormsApplication4
 			return count;
 		}
 
+		public virtual void setMainColor(Color color)
+		{
+			ColorBody = color;
+		}
+
 		public abstract void moveBomb(Graphics g);
 	}
 }
