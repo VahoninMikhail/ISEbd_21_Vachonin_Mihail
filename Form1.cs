@@ -12,136 +12,67 @@ namespace WindowsFormsApplication4
 {
 	public partial class Form1 : Form
 	{
-		Color color;
-        Color dopColor;
-		int maxSpeed;
-        int maxCountPass;
-        int weight;
-
-        private ITechnique inter;
+		Parking parking;
 
         public Form1()
 		{
             InitializeComponent();
-			color = Color.Black;
-            dopColor = Color.Black;
-			maxSpeed = 150;
-            maxCountPass = 4;
-            weight = 1500;
-            button1.BackColor = color;
-            button2.BackColor = dopColor;
+			parking = new Parking();
+			Draw();
         }
 
-        private void Form1_HelpButtonClicked(object sender, CancelEventArgs e)
+		private void Draw()
 		{
+			Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+			Graphics gr = Graphics.FromImage(bmp);
+			parking.Draw(gr, pictureBox1.Width, pictureBox1.Height);
+			pictureBox1.Image = bmp;
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			ColorDialog dialog = new ColorDialog();
+			if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				var plane = new Plane(100, 4, 1000, dialog.Color);
+				int place = parking.PutPlaneInParking(plane);
+				Draw();
+				MessageBox.Show("Вашеместо: " + place);
+			}
 
 		}
 
-        private void Transport_Click(object sender, EventArgs e)
-        {
-                inter = new Plane(maxSpeed, maxCountPass, weight, color);
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                inter.drawBombardir(gr);
-                pictureBox1.Image = bmp;
-            ButtonBomb.Enabled = false;
-        }
-
-        private void buttonMove_Click_Click(object sender, EventArgs e)
-        {
-            if (inter != null)
-            {
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                inter.moveBombardir(gr);
-                pictureBox1.Image = bmp;
-            }
-
-        }
-
-        private void buttonUpMove_Click(object sender, EventArgs e)
-        {
-            if (inter != null)
-            {
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                inter.moveUpBombardir(gr);
-                pictureBox1.Image = bmp;
-            }
-        }
-
-        private bool checkFields()
-        {
-            if (!int.TryParse(textBoxMaxSpeed.Text, out maxSpeed))
-            {
-                return false;
-            }
-            if (!int.TryParse(textBoxMaxCountBomb.Text, out maxCountPass))
-            {
-                return false;
-            }
-            if (!int.TryParse(textBoxWeight.Text, out weight))
-            {
-                return false;
-            }
-            return true;
-        }
-
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ButtonBomb_Click(object sender, EventArgs e)
-        {
-            if (checkFields())
-            {
-                inter = new Bombardir(maxSpeed, maxCountPass, weight, color, checkBox1.Checked, checkBox2.Checked, dopColor);
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                inter.giveBomb(gr);
-                pictureBox1.Image = bmp;
-            }
-        }
-
-        private void ButtonSetBombardir_Click(object sender, EventArgs e)
-        {
-            if (checkFields())
-            {
-                inter = new Bombardir(maxSpeed, maxCountPass, weight, color, checkBox1.Checked, checkBox2.Checked, dopColor);
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                inter.drawBombardir(gr);
-                pictureBox1.Image = bmp;
-                ButtonBomb.Enabled = true;
-            }
-        }
-
-		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		private void button3_Click(object sender, EventArgs e)
 		{
-
+			ColorDialog dialog = new ColorDialog();
+			if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				ColorDialog dialogDop = new ColorDialog();
+				if (dialogDop.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				{
+					var plane = new Bombardir(100, 4, 1000, dialog.Color, true, true, true, dialogDop.Color);
+					int place = parking.PutPlaneInParking(plane);
+					Draw();
+					MessageBox.Show("Вашеместо: " + place);
+				}
+			}
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void button1_Click_1(object sender, EventArgs e)
 		{
-            ColorDialog cd = new ColorDialog();
-            if (cd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                color = cd.Color;
-                button1.BackColor = color;
-            }
-        }
+			if (maskedTextBox1.Text != "")
+			{
+				var plane = parking.GetPlaneInParking(Convert.ToInt32(maskedTextBox1.Text));
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ColorDialog cd = new ColorDialog();
-            if (cd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                dopColor = cd.Color;
-                button2.BackColor = dopColor;
-            }
-        }
-    }
+				Bitmap bmp = new Bitmap(pictureBox2.Width, pictureBox2.Height);
+				Graphics gr = Graphics.FromImage(bmp);
+				plane.setPosition(0, 0);
+				plane.drawBombardir(gr);
+				pictureBox2.Image = bmp;
+				Draw();
+			}
+		}
+	}
 }
+
 
